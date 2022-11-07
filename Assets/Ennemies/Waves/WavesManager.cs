@@ -6,14 +6,15 @@ using UnityEngine;
 public class WavesManager : MonoBehaviour
 {
     public List<WaveInfo> waves;
-    [SerializeField]
-    private GameObject prefabFlying;
-    [SerializeField]
-    private GameObject prefabGround;
+    public List<Transform> flyingSpawners = new List<Transform>();
+    public List<Transform> groundSpawners = new List<Transform>();
+
+    [SerializeField] private GameObject prefabFlying;
+    [SerializeField] private GameObject prefabGround;
 
     [SerializeField] private Transform cameraLockPosition;
     private List<EnemyInfos> currentEnnemies;
-    
+
     private int currenteWave;
     private bool AlreadyTrigger = false;
     private bool HasStarted = false;
@@ -35,12 +36,12 @@ public class WavesManager : MonoBehaviour
                     currentEnnemies.RemoveAt(i);
                 }
             }
-        }
 
-        if (currentEnnemies.Count == 0)
-        {
-            currenteWave += 1;
-            SpawnWave(currenteWave);
+            if (currentEnnemies.Count == 0)
+            {
+                currenteWave += 1;
+                SpawnWave(currenteWave);
+            }
         }
     }
 
@@ -56,7 +57,22 @@ public class WavesManager : MonoBehaviour
 
     private void SpawnWave(int indexWave)
     {
-        
+        for (int i = 0; i < waves[indexWave].numberOfFlyingEnnemies; i++)
+        {
+            Spawn(prefabFlying, i);
+        }
+
+        for (int i = 0; i < waves[indexWave].numberOfGroundEnnemies; i++)
+        {
+            Spawn(prefabGround, i);
+        }
+    }
+
+    private void Spawn(GameObject go, int i)
+    {
+        EnemyInfos enemyInfos =
+            Instantiate(go, flyingSpawners[(i) % flyingSpawners.Count].position, Quaternion.identity)
+                .GetComponent<EnemyInfos>();
+        currentEnnemies.Add(enemyInfos);
     }
 }
-
