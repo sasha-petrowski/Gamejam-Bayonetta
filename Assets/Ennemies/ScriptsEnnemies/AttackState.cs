@@ -3,13 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : State
+public abstract class AttackState : State
 {
-    public ChaseState chaseState;
+    public ChaseStateWave chaseState;
 
+    private void Start()
+    {
+        gameObject.TryGetComponent(out _stateManager);
+    }
+    
     private void Update()
     {
-        if (Vector3.Distance(PlayerTest.Instance.transform.position, transform.position) >=2.5f)
+        if (Vector3.Distance(PlayerTest.Instance.transform.position, transform.position) >= _stateManager.enemyInfos.attackRange)
         {
             chaseState.IsInRange = false;
         }
@@ -24,8 +29,10 @@ public class AttackState : State
         }
         else
         {
-           Debug.Log("ATTACK"); 
-        return this;
+            Attack();            
+            return this;
         }
     }
+
+    public abstract void Attack();
 }

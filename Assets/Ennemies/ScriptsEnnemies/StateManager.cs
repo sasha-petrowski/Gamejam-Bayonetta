@@ -5,7 +5,8 @@ using UnityEngine;
 public class StateManager : MonoBehaviour
 {
     public State currentState;
-   
+    public EnemyInfos enemyInfos;
+    
     void Update()
     {
         RunStateMachine();

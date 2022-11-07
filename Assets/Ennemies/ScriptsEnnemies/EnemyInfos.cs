@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(order = -1, fileName = "Enemy")]
-public class EnemyInfos : ScriptableObject
+public class EnemyInfos : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int life;
+    public float speedPatrol;
+    public float speedChase;
+    public int damage;
+    public float fireRate;
+    public float attackRange;
+    public float chaseRange;
 }
+

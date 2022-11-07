@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingAttackState : State
+public class FlyingAttackState : AttackState
 {
-    public ChaseState chaseState;
+    public GameObject prefabBullet;
+    private bool alreadyAttacked = false;
 
-    private void Update()
+
+    public override void Attack()
     {
-        if (Vector3.Distance(PlayerTest.Instance.transform.position, transform.position) >=2.5f)
+        if (!alreadyAttacked)
         {
-            chaseState.IsInRange = false;
+            transform.LookAt(PlayerTest.Instance.transform);
+            GameObject go = Instantiate(prefabBullet, transform.position, Quaternion.identity);
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), _stateManager.enemyInfos.fireRate);
         }
     }
 
 
-    public override State RunCurrentState()
+    private void ResetAttack()
     {
-        if (chaseState.IsInRange == false)
-        {
-            return chaseState;
-        }
-        else
-        {
-            return this;
-        }
+        alreadyAttacked = false;
     }
 }
