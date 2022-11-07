@@ -8,21 +8,20 @@ public class Character : MonoBehaviour
 
     [SerializeField]
     private GameObject _foot;
-
-
-    [Header("Attack")]
-    [SerializeField] [Min(0)]
-    private float _attackKickTime;
+    [SerializeField]
+    private Weapon[] _weaponList;
 
 
     [Header("Leg")]
     [SerializeField]
     private float _legMinLenght;
 
-    [SerializeField] [Min(0)]
+    [SerializeField]
+    [Min(0)]
     private float _legMaxLenght;
 
-    [SerializeField] [Min(0)]
+    [SerializeField]
+    [Min(0)]
     private float _legExtendTime;
 
 
@@ -74,7 +73,13 @@ public class Character : MonoBehaviour
     [SerializeField]
     private AnimationCurve _dashCurve;
 
-    private float _legDistance;
+    [HideInInspector]
+    public Weapon currentWeapon;
+    public int currentWeaponIndex;
+
+    [HideInInspector]
+    public float _legDistance;
+
     private float _timeAtJumpStart;
     private float _timeAtDashStart;
 
@@ -90,6 +95,14 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for(int i = 0; i < _weaponList.Length; i++)
+        {
+            _weaponList[i].character = this;
+        }
+
+        currentWeapon = _weaponList[0];
+        currentWeapon.OnSelect();
+
         _legDistance = _legMaxLenght;
         _raycastPlane = new Plane(new Vector3(0, 0, 1), Vector3.zero);
 
@@ -138,7 +151,7 @@ public class Character : MonoBehaviour
         Vector3    targetPosition = Vector3.zero;
         Quaternion targetRotation = Quaternion.identity;
 
-        if (_isLegUp)
+        if (_isLegUp || _isAttacking)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             float enter = 0.0f;
@@ -163,11 +176,26 @@ public class Character : MonoBehaviour
 
     }
 
+    public void NextWeapon()
+    {
+        ChangeWeapon(1);
+    }
+    public void PreviousWeapon()
+    {
+        ChangeWeapon(_weaponList.Length - 1);
+    }
+    private void ChangeWeapon(int step) 
+    {
+        currentWeaponIndex = (currentWeaponIndex + step) % _weaponList.Length;
+        currentWeapon = _weaponList[currentWeaponIndex];
+        currentWeapon.OnSelect();
+    }
+
 
     public void GrabLeg()
     {
         _isLegUp = true;
-        DoRetractLeg();
+        DoRetractLeg(_legExtendTime, null);
     }
     public void HoldLeg()
     {
@@ -175,16 +203,16 @@ public class Character : MonoBehaviour
     public void DropLeg()
     {
         _isLegUp = false;
-        DoExtendLeg();
+        DoExtendLeg(_legExtendTime, null);
     }
 
-    private void DoRetractLeg()
+    public void DoRetractLeg(float time, TweenCallback onComplete)
     {
-        DOTween.To(() => _legDistance, x => _legDistance = x, _legMinLenght, (_legDistance - _legMinLenght) * _legExtendTime);
+        DOTween.To(() => _legDistance, x => _legDistance = x, _legMinLenght, (_legDistance - _legMinLenght) * time).onComplete = onComplete;
     }
-    private void DoExtendLeg()
+    public void DoExtendLeg(float time, TweenCallback onComplete)
     {
-        DOTween.To(() => _legDistance, x => _legDistance = x, _legMaxLenght, (_legMaxLenght - _legDistance) * _legExtendTime);
+        DOTween.To(() => _legDistance, x => _legDistance = x, _legMaxLenght, (_legMaxLenght - _legDistance) * time).onComplete = onComplete;
     }
 
     public void AttackStart()
@@ -192,24 +220,13 @@ public class Character : MonoBehaviour
         if (_isLegUp && !_isAttacking)
         {
             _isAttacking = true;
-            DoKickAttack();
+            currentWeapon.Attack();
         }
     }
-    private void OnAttackEnd()
+    public void OnAttackEnd()
     {
         _isAttacking = false;
     }
-
-
-    private void DoKickAttack()
-    {
-        DOTween.To(() => _legDistance, x => _legDistance = x, _legMaxLenght, _attackKickTime).OnComplete(() => DOTween.To(() => _legDistance, x => _legDistance = x, _legMinLenght, _attackKickTime).onComplete = OnKickAttackEnd);
-    }
-    private void OnKickAttackEnd()
-    {
-        OnAttackEnd();
-    }
-
 
     public void JumpStart()
     {

@@ -61,5 +61,15 @@ public class CharacterController : MonoBehaviour
         {
             character.AttackStart();
         }
+
+        //Change weapon
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            character.PreviousWeapon();
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            character.NextWeapon();
+        }
     }
 }
