@@ -123,8 +123,8 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _disolve: 32.6
-    - _disolve_speed: 10.41
+    - _disolve: 35
+    - _disolve_speed: 1
     - _speed: 0
     - _speeed: -1
     m_Colors:
