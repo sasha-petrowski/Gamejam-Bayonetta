@@ -1,0 +1,258 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+public class Character : MonoBehaviour
+{
+    [Header("Refs")]
+
+    [SerializeField]
+    private GameObject _foot;
+
+
+    [Header("Attack")]
+    [SerializeField] [Min(0)]
+    private float _attackKickTime;
+
+
+    [Header("Leg")]
+    [SerializeField]
+    private float _legMinLenght;
+
+    [SerializeField] [Min(0)]
+    private float _legMaxLenght;
+
+    [SerializeField] [Min(0)]
+    private float _legExtendTime;
+
+
+    [Header("Stats")]
+
+    [SerializeField]
+    [Min(0)]
+    private int _maxHealth;
+
+    [SerializeField]
+    [Min(0)]
+    private float _horizontalSpeed;
+
+    [SerializeField]
+    [Min(0)]
+    private float _movementAcceleration;
+    /*
+    [SerializeField]
+    [Min(0)]
+    private float _movementDrag;
+    */
+    [Header("Jump")]
+
+    [SerializeField]
+    [Min(0)]
+    private float _jumpHeight;
+
+    [SerializeField]
+    [Min(0)]
+    private float _jumpTime;
+
+    [SerializeField]
+    private AnimationCurve _jumpCurve;
+
+    [Header("Dash")]
+
+    [SerializeField]
+    [Min(0)]
+    private float _dashSpeed;
+
+    [SerializeField]
+    [Min(0)]
+    private float _dashCooldown;
+
+    [SerializeField]
+    [Min(0)]
+    private float _dashTime;
+
+    [SerializeField]
+    private AnimationCurve _dashCurve;
+
+    private float _legDistance;
+    private float _timeAtJumpStart;
+    private float _timeAtDashStart;
+
+    private float _dashDirection;
+    private bool _isJumping = false;
+    private bool _isAttacking = false;
+    private bool _isLegUp = false;
+    private float _health;
+    private float _direction;
+
+    private Plane _raycastPlane;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _legDistance = _legMaxLenght;
+        _raycastPlane = new Plane(new Vector3(0, 0, 1), Vector3.zero);
+
+        _health = _maxHealth;
+    }
+
+    private void Update()
+    {
+        // Movement
+
+        //Jump
+        float jumpY = 0;
+        if (_isJumping)
+        {
+            if ((Time.time - _timeAtJumpStart) / _jumpTime >= 1)
+            {
+                jumpY = _jumpCurve.Evaluate(1) * _jumpHeight;
+                OnJumpEnd();
+            }
+            else
+            {
+                jumpY = _jumpCurve.Evaluate((Time.time - _timeAtJumpStart) / _jumpTime) * _jumpHeight;
+            }
+        } // Evaluate the height based on _timeAtJumpStart, call OnJumpEnd() if needed.
+
+        float dashStep = 0;
+        if (_dashDirection != 0)
+        {
+            if ((Time.time - _timeAtDashStart) / _dashTime >= 1)
+            {
+                dashStep = _dashDirection * _dashCurve.Evaluate(1) * _dashSpeed * Time.deltaTime;
+                OnDashEnd();
+            }
+            else
+            {
+                dashStep = _dashDirection * _dashCurve.Evaluate((Time.time - _timeAtDashStart) / _dashTime) * _dashSpeed * Time.deltaTime;
+            }
+        } // Evaluate the dashStep based on _timeAtDashStart, call OnDashEnd() if needed.
+
+        float moveStep = _direction * _horizontalSpeed * Time.deltaTime;
+
+        transform.position = new Vector3(transform.position.x + dashStep + moveStep, jumpY, transform.position.z);
+        //_direction = Mathf.MoveTowards(_direction, 0, Time.deltaTime * _movementDrag);
+
+        // Update foot position
+        Vector3    targetPosition = Vector3.zero;
+        Quaternion targetRotation = Quaternion.identity;
+
+        if (_isLegUp)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float enter = 0.0f;
+            if (_raycastPlane.Raycast(ray, out enter))
+            {
+                Vector3 direction = (ray.GetPoint(enter) - transform.position).normalized;
+                targetPosition = direction * _legDistance + transform.position;
+
+                targetRotation = Quaternion.FromToRotation(new Vector3(0, -1, 0), direction);
+            }
+        }
+        else
+        {
+            targetPosition = transform.position;
+            targetPosition.y -= _legMaxLenght;
+        }
+
+        _foot.transform.position = targetPosition;
+
+        _foot.transform.rotation = targetRotation;
+        //_foot.transform.rotation = Quaternion.RotateTowards(_foot.transform.rotation, targetRotation, 360 * Time.deltaTime);
+
+    }
+
+
+    public void GrabLeg()
+    {
+        _isLegUp = true;
+        DoRetractLeg();
+    }
+    public void HoldLeg()
+    {
+    }
+    public void DropLeg()
+    {
+        _isLegUp = false;
+        DoExtendLeg();
+    }
+
+    private void DoRetractLeg()
+    {
+        DOTween.To(() => _legDistance, x => _legDistance = x, _legMinLenght, (_legDistance - _legMinLenght) * _legExtendTime);
+    }
+    private void DoExtendLeg()
+    {
+        DOTween.To(() => _legDistance, x => _legDistance = x, _legMaxLenght, (_legMaxLenght - _legDistance) * _legExtendTime);
+    }
+
+    public void AttackStart()
+    {
+        if (_isLegUp && !_isAttacking)
+        {
+            _isAttacking = true;
+            DoKickAttack();
+        }
+    }
+    private void OnAttackEnd()
+    {
+        _isAttacking = false;
+    }
+
+
+    private void DoKickAttack()
+    {
+        DOTween.To(() => _legDistance, x => _legDistance = x, _legMaxLenght, _attackKickTime).OnComplete(() => DOTween.To(() => _legDistance, x => _legDistance = x, _legMinLenght, _attackKickTime).onComplete = OnKickAttackEnd);
+    }
+    private void OnKickAttackEnd()
+    {
+        OnAttackEnd();
+    }
+
+
+    public void JumpStart()
+    {
+        if (! _isJumping)
+        {
+            _isJumping = true;
+            _timeAtJumpStart = Time.time;
+        }
+    }
+    private void OnJumpEnd()
+    {
+        _isJumping = false;
+    }
+
+    public void DashStart(float direction)
+    {
+        if (_isJumping == false && _dashDirection == 0 && _timeAtDashStart + _dashTime + _dashCooldown <= Time.time)
+        {
+            _dashDirection = direction;
+            _timeAtDashStart = Time.time;
+        }
+    }
+    private void OnDashEnd()
+    {
+        _dashDirection = 0;
+    }
+
+    public void HorizontalMovement(float direction)
+    {
+        if (_isLegUp == false || _isJumping == true || direction == 0)
+        {
+            _direction = Mathf.MoveTowards(_direction, direction, Time.deltaTime * _movementAcceleration);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float enter = 0.0f;
+        if (_raycastPlane.Raycast(ray, out enter))
+        {
+            Vector3 point = ray.GetPoint(enter) - transform.position;
+            Gizmos.DrawLine(transform.position, point + transform.position);
+        }
+    }
+}
