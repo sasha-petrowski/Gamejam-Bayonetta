@@ -12,14 +12,10 @@ public class Weapon : MonoBehaviour
 
     public virtual void OnSelect() { }
 
-    public virtual void Attack()
-    {
-        isAttacking = true;
-    }
+    public virtual float Attack() { return 0f; }
 
     public virtual void OnAttackEnd()
     {
-        isAttacking = false;
         character.OnAttackEnd();
     }
 }
