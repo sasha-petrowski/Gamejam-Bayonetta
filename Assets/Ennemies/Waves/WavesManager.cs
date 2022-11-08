@@ -42,7 +42,6 @@ public class WavesManager : MonoBehaviour
                 currentWave += 1;
                 if (currentWave >= waves.Count)
                 {
-                    Camera.main.transform.position = cameraPreviousPos;
                     Character.Instance.CameraBlock(false);
                     Camera.main.gameObject.GetComponent<FollowPlayer>().IsFollowing = true;
                 }

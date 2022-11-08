@@ -36,12 +36,12 @@ public class PatrolState : State
     {
         if (canSeeThePlayer)
         {
-            animator.SetInteger("ID",1);
+            animator.SetBool("Ismoving",true);
             return chaseState;
         }
         else
         {
-            animator.SetInteger("ID",1);
+            animator.SetBool("Ismoving",true);
             if (Vector3.Distance(transform.position, patrolsPoints[current].position) >= 2f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, patrolsPoints[current].position,

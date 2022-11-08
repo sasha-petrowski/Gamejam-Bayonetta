@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class GroundAttackState : AttackState
 {
-   
-
     public override void Attack()
     {
+        int animIndex = Random.Range(0, 1);
+        if (animIndex == 0)
+        {
+            animator.SetBool("Kick", true);
+            animator.SetBool("Poing", false);
+        }
+        if (animIndex == 1)
+        {
+            animator.SetBool("Poing", true);
+            animator.SetBool("Kick", false);
+        }
     }
 }

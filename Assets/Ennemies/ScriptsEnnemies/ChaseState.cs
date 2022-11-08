@@ -27,18 +27,18 @@ public class ChaseState : ChaseStateWave
     {
         if (patrolState.canSeeThePlayer == false)
         {
-            animator.SetInteger("ID",1);
+            animator.SetBool("Ismoving",true);
             return patrolState;
         }
 
         if (IsInRange)
         {
-            animator.SetInteger("ID",2);
+            animator.SetBool("Ismoving",false);
             return attackState;
         }
         else
         {
-            animator.SetInteger("ID",1);
+            animator.SetBool("Ismoving",true);
             transform.position = Vector3.MoveTowards(transform.position, PlayerPosition.Instance.transform.position,
                 _stateManager.enemyInfos.speedChase * Time.deltaTime);
             return this;
