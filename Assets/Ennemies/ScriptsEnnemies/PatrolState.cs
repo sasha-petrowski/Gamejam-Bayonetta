@@ -11,12 +11,12 @@ public class PatrolState : State
     public ChaseState chaseState;
     public List<Transform> patrolsPoints = new List<Transform>();
     private int current;
-
-
+    
     private void Start()
     {
         current = 0;
         gameObject.TryGetComponent(out _stateManager);
+        animator = gameObject.GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -36,15 +36,17 @@ public class PatrolState : State
     {
         if (canSeeThePlayer)
         {
+            animator.SetBool("Ismoving",true);
             return chaseState;
         }
         else
         {
+            animator.SetBool("Ismoving",true);
             if (Vector3.Distance(transform.position, patrolsPoints[current].position) >= 2f)
             {
-                //navMesh.SetDestination(patrolsPoints[current].position);
                 transform.position = Vector3.MoveTowards(transform.position, patrolsPoints[current].position,
                     _stateManager.enemyInfos.speedPatrol * Time.deltaTime);
+                transform.LookAt(patrolsPoints[current].position);
             }
             else
             {

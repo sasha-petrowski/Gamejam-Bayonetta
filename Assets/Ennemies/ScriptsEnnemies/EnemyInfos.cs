@@ -7,16 +7,15 @@ public class EnemyInfos : MonoBehaviour
     public int life;
     public float speedPatrol;
     public float speedChase;
-    public int damage;
     public float fireRate;
     public float attackRange;
     public float chaseRange;
-
+    public int scoreValue;
 
     public void TakeDamage(int damage)
     {
         life -= damage;
-        if (life >= 0)
+        if (life <= 0)
         {
             Destroy(gameObject);
         }

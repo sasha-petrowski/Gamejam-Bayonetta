@@ -10,11 +10,13 @@ public abstract class AttackState : State
     private void Start()
     {
         gameObject.TryGetComponent(out _stateManager);
+        animator = gameObject.GetComponentInChildren<Animator>();
     }
-    
+
     private void Update()
     {
-        if (Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position) >= _stateManager.enemyInfos.attackRange)
+        if (Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position) >=
+            _stateManager.enemyInfos.attackRange)
         {
             chaseState.IsInRange = false;
         }
@@ -29,7 +31,7 @@ public abstract class AttackState : State
         }
         else
         {
-            Attack();            
+            Attack();
             return this;
         }
     }

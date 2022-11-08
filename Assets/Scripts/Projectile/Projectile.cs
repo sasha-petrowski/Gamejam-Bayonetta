@@ -45,9 +45,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out enemy))
+        enemy = other.gameObject.GetComponentInParent<EnemyInfos>();
+        if (enemy)
         {
-            enemy.TakeDamage((int)damage);
+            enemy.TakeDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

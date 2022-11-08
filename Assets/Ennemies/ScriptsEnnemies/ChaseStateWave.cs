@@ -12,6 +12,7 @@ public class ChaseStateWave : State
     private void Start()
     {
         gameObject.TryGetComponent(out _stateManager);
+        animator = gameObject.GetComponentInChildren<Animator>();
     }
 
     private void Update()

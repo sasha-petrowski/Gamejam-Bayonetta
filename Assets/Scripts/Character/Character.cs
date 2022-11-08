@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 public class Character : MonoBehaviour
 {
+    public static Character Instance;
+    
     [Header("Refs")]
 
     [SerializeField]
@@ -101,7 +104,10 @@ public class Character : MonoBehaviour
 
     private Plane _raycastPlane;
 
-
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -122,7 +128,7 @@ public class Character : MonoBehaviour
         _health = _maxHealth;
 
 
-        CameraBlock(true);
+        CameraBlock(false);
     }
 
     private void Update()

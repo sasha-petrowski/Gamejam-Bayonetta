@@ -12,6 +12,7 @@ public class FlyingAttackState : AttackState
     {
         if (!alreadyAttacked)
         {
+            animator.SetBool("Attack",true);
             transform.LookAt(PlayerPosition.Instance.transform);
             GameObject go = Instantiate(prefabBullet, transform.position, Quaternion.identity);
             Rigidbody rb = go.GetComponent<Rigidbody>();
