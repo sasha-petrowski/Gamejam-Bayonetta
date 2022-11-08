@@ -10,9 +10,13 @@ public class Kick : Weapon
     [SerializeField]
     private Collider _collider;
 
-    public override void OnSelect() 
+    public override void OnSelect()
     {
-        _collider.enabled = false;
+        character.DoRetractLeg(kickTime, null);
+    }
+    public override void OnQuit()
+    {
+        character.DoExtendLeg(kickTime, null);
     }
 
 

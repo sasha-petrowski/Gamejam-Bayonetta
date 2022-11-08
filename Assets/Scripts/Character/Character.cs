@@ -13,17 +13,14 @@ public class Character : MonoBehaviour
 
 
     [Header("Leg")]
+    [SerializeField] 
+    private Vector3 _footAngleVector;
     [SerializeField]
     private float _legMinLenght;
 
     [SerializeField]
     [Min(0)]
     private float _legMaxLenght;
-
-    [SerializeField]
-    [Min(0)]
-    private float _legExtendTime;
-
 
     [Header("Stats")]
 
@@ -78,8 +75,9 @@ public class Character : MonoBehaviour
     public int currentWeaponIndex;
 
     [HideInInspector]
-    public float _legDistance;
+    public Vector3 legDirection;
 
+    private float _legDistance;
     private float _timeAtJumpStart;
     private float _timeAtDashStart;
     private float _timeAtAttackStart;
@@ -93,6 +91,8 @@ public class Character : MonoBehaviour
     private float _direction;
 
     private Plane _raycastPlane;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -159,10 +159,10 @@ public class Character : MonoBehaviour
             float enter = 0.0f;
             if (_raycastPlane.Raycast(ray, out enter))
             {
-                Vector3 direction = (ray.GetPoint(enter) - transform.position).normalized;
-                targetPosition = direction * _legDistance + transform.position;
+                legDirection = (ray.GetPoint(enter) - transform.position).normalized;
+                targetPosition = legDirection * _legDistance + transform.position;
 
-                targetRotation = Quaternion.FromToRotation(new Vector3(0, -1, 0), direction);
+                targetRotation = Quaternion.FromToRotation(new Vector3(0, -1, 0), legDirection);
             }
         }
         else
@@ -174,6 +174,7 @@ public class Character : MonoBehaviour
         _foot.transform.position = targetPosition;
 
         _foot.transform.rotation = targetRotation;
+        _foot.transform.Rotate(_footAngleVector);
         //_foot.transform.rotation = Quaternion.RotateTowards(_foot.transform.rotation, targetRotation, 360 * Time.deltaTime);
 
     }
@@ -188,6 +189,7 @@ public class Character : MonoBehaviour
     }
     private void ChangeWeapon(int step) 
     {
+        currentWeapon.OnQuit();
         currentWeaponIndex = (currentWeaponIndex + step) % _weaponList.Length;
         currentWeapon = _weaponList[currentWeaponIndex];
         currentWeapon.OnSelect();
@@ -197,7 +199,6 @@ public class Character : MonoBehaviour
     public void GrabLeg()
     {
         _isLegUp = true;
-        DoRetractLeg(_legExtendTime, null);
     }
     public void HoldLeg()
     {
@@ -205,7 +206,6 @@ public class Character : MonoBehaviour
     public void DropLeg()
     {
         _isLegUp = false;
-        DoExtendLeg(_legExtendTime, null);
     }
 
     public void DoRetractLeg(float time, TweenCallback onComplete)

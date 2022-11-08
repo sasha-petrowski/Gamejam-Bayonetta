@@ -8,10 +8,32 @@ public class Projectile : MonoBehaviour
     public float damage;
     public float speed;
     public float duration;
+    [HideInInspector]
+    public Vector3 direction;
+
+    private float _timeAtLaunch;
+
+    private bool _moving = false;
+
+    private void Update()
+    {
+        if (_moving)
+        {
+            if(Time.time < _timeAtLaunch + duration)
+            {
+                transform.position += direction * Time.deltaTime;
+            }
+            else
+            {
+                End();
+            }
+        }
+    }
 
     public void Launch()
     {
-        transform.DOMove(transform.position + new Vector3(speed * duration * Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), speed * duration * -Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), transform.position.z), duration).onComplete = End;
+        _moving = true;
+        _timeAtLaunch = Time.time;
     }
 
     public void End()

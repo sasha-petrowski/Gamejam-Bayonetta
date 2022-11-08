@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     public bool isAttacking;
 
     public virtual void OnSelect() { }
+    public virtual void OnQuit() { }
 
     public virtual float Attack() { return 0f; }
 

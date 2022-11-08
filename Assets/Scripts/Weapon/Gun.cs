@@ -16,12 +16,21 @@ public class Gun : Weapon
     
     public override float Attack()
     {
+        float legAngle = Mathf.Atan2(character.legDirection.y, character.legDirection.x) + 0.5f * Mathf.PI;
+        Debug.Log(legAngle);
         for (int i = 0; i < projectileAmount; i++)
         {
             Projectile newProjectile = GameObject.Instantiate(projectile);
             newProjectile.transform.position = projectileSpawn.transform.position;
+            newProjectile.transform.position = projectileSpawn.transform.position;
             newProjectile.transform.rotation = projectileSpawn.transform.rotation;
-            newProjectile.transform.Rotate(new Vector3(0, 0, projectileSpread * (i / (float)projectileAmount) - projectileSpread / 2f));
+
+            float spreadAngle = (projectileSpread * (i / (float)projectileAmount) - projectileSpread / 2f) * Mathf.Deg2Rad;
+            
+            Debug.Log(spreadAngle);
+            
+            newProjectile.direction = ( character.legDirection + new Vector3(Mathf.Sin(legAngle + spreadAngle), -Mathf.Cos(legAngle + spreadAngle), 0)) * newProjectile.speed;
+
             newProjectile.Launch();
         }
         OnAttackEnd();
