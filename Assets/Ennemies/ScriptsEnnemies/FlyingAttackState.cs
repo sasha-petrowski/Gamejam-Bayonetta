@@ -5,18 +5,12 @@ using UnityEngine;
 
 public class FlyingAttackState : AttackState
 {
-    public GameObject prefabBullet;
-
-
     public override void Attack()
     {
         if (!alreadyAttacked)
         {
             animator.SetBool("Attack",true);
-            transform.LookAt(Character.Instance.transform);
-            GameObject go = Instantiate(prefabBullet, transform.position, Quaternion.identity);
-            Rigidbody rb = go.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), _stateManager.enemyInfos.fireRate);
         }

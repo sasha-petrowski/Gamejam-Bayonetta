@@ -77,8 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseState: {fileID: 2141187798932033660}
-  prefabBullet: {fileID: 8870000954995302451, guid: 23d5789fc18fbe244b75d6ee2be2375d,
-    type: 3}
 --- !u!114 &2141187798932033663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +253,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &863525803931132517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332345689846398403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23ff37807b9ca745ba29a42a9ff1b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBullet: {fileID: 8870000954995302451, guid: 23d5789fc18fbe244b75d6ee2be2375d,
+    type: 3}
+  offsetBullet: {x: 0, y: 1, z: 0}
 --- !u!4 &3104660887072761721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bf9951d5610c8744f90d35b7ea69833f,
