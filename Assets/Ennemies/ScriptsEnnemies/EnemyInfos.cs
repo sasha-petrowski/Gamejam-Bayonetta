@@ -26,6 +26,9 @@ public class EnemyInfos : MonoBehaviour
 
     public IEnumerator OnDeath(ParticleSystem system)
     {
+        ScoreManager.AddScore(scoreValue);
+        ScoreManager.mult ++;
+
         go = Instantiate(Impact, transform.position, Quaternion.identity);
         go.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(0.2f);
