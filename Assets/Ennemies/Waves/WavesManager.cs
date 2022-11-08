@@ -9,24 +9,19 @@ public class WavesManager : MonoBehaviour
     public List<WaveInfo> waves;
     public List<Transform> flyingSpawners = new List<Transform>();
     public List<Transform> groundSpawners = new List<Transform>();
-
-    [SerializeField] private Camera cam;
+    private Vector3 cameraPreviousPos;
     [SerializeField] private GameObject prefabFlying;
     [SerializeField] private GameObject prefabGround;
 
-    [SerializeField] private Transform cameraLockPosition;
     public List<EnemyInfos> currentEnnemies;
 
     private int currentWave;
     private bool AlreadyTrigger = false;
     private bool HasStarted = false;
-    private bool IsLocked = false;
-    public int compt;
 
     private void Start()
     {
         currentWave = 0;
-        compt = 0;
         currentEnnemies = new List<EnemyInfos>();
     }
 
@@ -38,16 +33,18 @@ public class WavesManager : MonoBehaviour
             {
                 if (currentEnnemies[i].life <= 0)
                 {
-                    compt -= 1;
                     currentEnnemies.RemoveAt(i);
                 }
             }
+
             if (currentEnnemies.Count == 0)
             {
                 currentWave += 1;
                 if (currentWave >= waves.Count)
                 {
-                    IsLocked = false;
+                    Camera.main.transform.position = cameraPreviousPos;
+                    Character.Instance.CameraBlock(false);
+                    Camera.main.gameObject.GetComponent<FollowPlayer>().IsFollowing = true;
                 }
                 else
                 {
@@ -55,25 +52,21 @@ public class WavesManager : MonoBehaviour
                 }
             }
         }
-
-        if (IsLocked)
-        {
-            cam.transform.position = cameraLockPosition.position;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerPosition>() && !AlreadyTrigger)
+        if (other.gameObject.GetComponent<Character>() && !AlreadyTrigger)
         {
             StartCoroutine(FirstWave());
+            Character.Instance.CameraBlock(true);
+            Camera.main.gameObject.GetComponent<FollowPlayer>().IsFollowing = false;
             AlreadyTrigger = true;
         }
     }
 
     private IEnumerator FirstWave()
     {
-        cam.transform.DOMove(cameraLockPosition.position, 0.5f);
         yield return new WaitForSeconds(2);
         SpawnWave(currentWave);
         HasStarted = true;
@@ -97,6 +90,6 @@ public class WavesManager : MonoBehaviour
     {
         EnemyInfos enemyInfos = Instantiate(go, pos, Quaternion.identity).GetComponent<EnemyInfos>();
         currentEnnemies.Add(enemyInfos);
-        compt += 1;
+        
     }
 }
