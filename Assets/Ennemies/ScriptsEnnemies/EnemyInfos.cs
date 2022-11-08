@@ -14,11 +14,14 @@ public class EnemyInfos : MonoBehaviour
     public GameObject Impact;
     private GameObject go;
 
+    private bool _dead;
+
     public void TakeDamage(int damage)
     {
         life -= damage;
-        if (life <= 0)
+        if (life <= 0 && !_dead)
         {
+            _dead = true;
             ParticleSystem system = Impact.GetComponent<ParticleSystem>();
             StartCoroutine(OnDeath(system));
         }

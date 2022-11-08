@@ -8,10 +8,9 @@ public class ScoreMenu : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timeText;
 
-    public void UpdateScoreMenu()
+    private void Update()
     {
-        scoreMenu.SetActive(true);
         scoreText.text = ScoreManager.score.ToString();
-        timeText.text = $"{Time.time / 60} min";
+        timeText.text = $"{Mathf.FloorToInt(Time.time)} S";
     }
 }

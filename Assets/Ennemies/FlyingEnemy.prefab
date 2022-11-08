@@ -114,7 +114,7 @@ MonoBehaviour:
   fireRate: 4
   attackRange: 5
   chaseRange: 10
-  scoreValue: 0
+  scoreValue: 1
   Impact: {fileID: 5234043328845210674, guid: c1b86416654a291409bfe2a010674e74, type: 3}
 --- !u!1001 &1457825573138375731
 PrefabInstance:
