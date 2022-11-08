@@ -5,7 +5,7 @@ using UnityEngine;
 public class Kick : Weapon
 {
     [Min(0)]
-    public float kickDamage;
+    public int kickDamage;
     [Min(0)]
     public float kickTime;
 
@@ -35,7 +35,7 @@ public class Kick : Weapon
         character.DoRetractLeg(kickTime, OnAttackEnd);
     }
 
-    private void OnCollisionEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         EnemyInfos enemy;
         if (other.gameObject.TryGetComponent(out enemy))

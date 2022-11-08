@@ -93,7 +93,7 @@ public class Character : MonoBehaviour
     private bool _isLegUp = false;
     private float _direction;
 
-    private float _health;
+    private int _health;
 
     private Plane _raycastPlane;
 
@@ -192,6 +192,16 @@ public class Character : MonoBehaviour
         //_foot.transform.rotation = Quaternion.RotateTowards(_foot.transform.rotation, targetRotation, 360 * Time.deltaTime);
 
     }
+
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        if(_health <= 0)
+        {
+            //dead
+        }
+    }
+
 
     public void CameraBlock(bool cameraBlock)
     {

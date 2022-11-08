@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage;
+    public int damage;
     public float speed;
     public float duration;
     private EnemyInfos enemy;
