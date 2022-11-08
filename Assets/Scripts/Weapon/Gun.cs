@@ -13,6 +13,8 @@ public class Gun : Weapon
     [Tooltip("Angle between the first and last projectile")]
     public float projectileSpread;
 
+    public ParticleSystem fxOnShoot;
+    public AudioSource soundOnShoot;
     
     public override float Attack()
     {
@@ -20,6 +22,9 @@ public class Gun : Weapon
         Debug.Log(legAngle);
         for (int i = 0; i < projectileAmount; i++)
         {
+            fxOnShoot.Play();
+            soundOnShoot.Play();
+
             Projectile newProjectile = GameObject.Instantiate(projectile);
             newProjectile.transform.position = projectileSpawn.transform.position;
             newProjectile.transform.position = projectileSpawn.transform.position;

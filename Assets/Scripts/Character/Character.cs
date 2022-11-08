@@ -6,9 +6,12 @@ using DG.Tweening;
 public class Character : MonoBehaviour
 {
     public static Character Instance;
-    
-    [Header("Refs")]
 
+    [Header("Refs")]
+    [SerializeField]
+    private AudioSource _takeDamageSound;
+    [SerializeField]
+    private ParticleSystem _takeDamageFX;
     [SerializeField]
     private GameObject _foot;
     [SerializeField]
@@ -127,7 +130,6 @@ public class Character : MonoBehaviour
 
         _health = _maxHealth;
 
-
         CameraBlock(false);
     }
 
@@ -212,6 +214,9 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        _takeDamageSound.Play();
+        _takeDamageFX.Play();
+
         _health -= damage;
         if(_health <= 0)
         {
