@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Animations.Rigging;
+
+
 public class Character : MonoBehaviour
 {
     public static Character Instance;
@@ -11,12 +14,21 @@ public class Character : MonoBehaviour
     [SerializeField]
     private AudioSource _takeDamageSound;
     [SerializeField]
+    private AudioSource _jumpSound;
+    [SerializeField]
+    private AudioSource _runSound;
+    [SerializeField]
     private ParticleSystem _takeDamageFX;
     [SerializeField]
     private GameObject _foot;
     [SerializeField]
     private Weapon[] _weaponList;
 
+    [SerializeField]
+    private Animator _animator;
+
+    [SerializeField]
+    private Rig _legRig;
 
     [Header("Leg")]
 
@@ -81,10 +93,12 @@ public class Character : MonoBehaviour
 
     [HideInInspector]
     public Weapon currentWeapon;
+    [HideInInspector]
     public int currentWeaponIndex;
-
     [HideInInspector]
     public Vector3 legDirection;
+
+
     private Vector3 _maxLegDirection;
 
     private bool _isBlockedByCamera;
@@ -135,6 +149,9 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        // animation
+        _animator.SetBool("IsMoving", _direction != 0 && _isJumping == false);
+
         // Movement
 
         //Jump
@@ -214,14 +231,17 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _takeDamageSound.Play();
-        _takeDamageFX.Play();
-
-        _health -= damage;
-        Debug.Log(_health);
-        if(_health <= 0)
+        if(Time.time > _timeAtDashStart + _dashTime)
         {
-            //dead
+            _takeDamageSound.Play();
+            _takeDamageFX.Play();
+
+            _health -= damage;
+            Debug.Log(_health);
+            if (_health <= 0)
+            {
+                //dead
+            }
         }
     }
 
@@ -267,6 +287,7 @@ public class Character : MonoBehaviour
 
     public void GrabLeg()
     {
+        DOTween.To(() => _legRig.weight, x => _legRig.weight = x, 1, 0.5f * (1 - _legRig.weight));
         _isLegUp = true;
     }
     public void HoldLeg()
@@ -274,6 +295,7 @@ public class Character : MonoBehaviour
     }
     public void DropLeg()
     {
+        DOTween.To(() => _legRig.weight, x => _legRig.weight = x, 0, 0.5f * (_legRig.weight));
         _isLegUp = false;
     }
 
@@ -315,7 +337,7 @@ public class Character : MonoBehaviour
 
     public void DashStart(float direction)
     {
-        if (_isJumping == false && _dashDirection == 0 && _timeAtDashStart + _dashTime + _dashCooldown <= Time.time)
+        if (_dashDirection == 0 && _timeAtDashStart + _dashTime + _dashCooldown <= Time.time)
         {
             _dashDirection = direction;
             _timeAtDashStart = Time.time;
@@ -328,10 +350,7 @@ public class Character : MonoBehaviour
 
     public void HorizontalMovement(float direction)
     {
-        if (_isLegUp == false || _isJumping == true || direction == 0)
-        {
-            _direction = Mathf.MoveTowards(_direction, direction, Time.deltaTime * _movementAcceleration);
-        }
+        _direction = Mathf.MoveTowards(_direction, direction, Time.deltaTime * _movementAcceleration);
     }
 
     private void OnDrawGizmos()

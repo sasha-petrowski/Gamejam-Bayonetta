@@ -111,10 +111,11 @@ MonoBehaviour:
   life: 10
   speedPatrol: 5
   speedChase: 3
-  damage: 1
   fireRate: 2
   attackRange: 2
   chaseRange: 10
+  scoreValue: 0
+  Impact: {fileID: 0}
 --- !u!1001 &8698291607701449362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,6 +203,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ange_Sol_Idle
       objectReference: {fileID: 0}
+    - target: {fileID: 4234827247541336033, guid: 1dc9b8984cd8ded46a0fc699f0f5223c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4502055224978169951, guid: 4365f0005215f674daf6c5fc638ec6af,
+        type: 3}
+    - target: {fileID: 4234827247541336033, guid: 1dc9b8984cd8ded46a0fc699f0f5223c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 309a527e8da838446b42d689879eee1c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dc9b8984cd8ded46a0fc699f0f5223c, type: 3}
 --- !u!1 &8392427051931621315 stripped
