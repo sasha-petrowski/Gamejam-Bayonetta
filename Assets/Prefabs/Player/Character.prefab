@@ -2108,6 +2108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   isAttacking: 0
+  kickDamage: 0
   kickTime: 0.1
   _collider: {fileID: 5270589929693353121}
 --- !u!1 &5270589930013797610
@@ -2208,6 +2209,7 @@ MonoBehaviour:
   - {fileID: 5270589928845687567}
   - {fileID: 5270589929693353134}
   - {fileID: 5270589929500873911}
+  _maxLegAngle: 0
   _footAngleVector: {x: -45, y: 90, z: 180}
   _legMinLenght: 1.5
   _legMaxLenght: 2.5
