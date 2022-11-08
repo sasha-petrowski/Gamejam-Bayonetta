@@ -12,7 +12,7 @@ public class FlyingAttackState : AttackState
     {
         if (!alreadyAttacked)
         {
-            transform.LookAt(PlayerTest.Instance.transform);
+            transform.LookAt(PlayerPosition.Instance.transform);
             GameObject go = Instantiate(prefabBullet, transform.position, Quaternion.identity);
             Rigidbody rb = go.GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
