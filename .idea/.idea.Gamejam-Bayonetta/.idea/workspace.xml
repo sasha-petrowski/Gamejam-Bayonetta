@@ -11,7 +11,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Ennemies/FollowPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ennemies/ScriptsEnnemies/AttackState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ennemies/ScriptsEnnemies/FlyingAttackState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Ennemies/ScriptsEnnemies/PlayerPosition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ennemies/ScriptsEnnemies/ProjectileEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ennemies/ScriptsEnnemies/StateManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>

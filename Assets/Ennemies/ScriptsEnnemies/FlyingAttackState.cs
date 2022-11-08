@@ -6,7 +6,6 @@ using UnityEngine;
 public class FlyingAttackState : AttackState
 {
     public GameObject prefabBullet;
-    private bool alreadyAttacked = false;
 
 
     public override void Attack()

@@ -1040,6 +1040,8 @@ MonoBehaviour:
     type: 3}
   prefabGround: {fileID: 5506866809512254064, guid: 71bdabf33db5b80478f2871b0e00d18e,
     type: 3}
+  prefabFX: {fileID: 2314404736012078963, guid: 162eff253e180b74c948087e5ad6cd0d,
+    type: 3}
   currentEnnemies: []
 --- !u!1001 &1457825574980746311
 PrefabInstance:
@@ -1118,6 +1120,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8378132698703929193, guid: ebe9367adb57223408eaee46fa4a7f7c,
+        type: 3}
+      propertyPath: Impact
+      value: 
+      objectReference: {fileID: 5234043328845210674, guid: c1b86416654a291409bfe2a010674e74,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe9367adb57223408eaee46fa4a7f7c, type: 3}
 --- !u!1001 &8698291608822785647
@@ -1197,6 +1205,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8797178996764986152, guid: 195410c736c0036419e9cd9af230109c,
+        type: 3}
+      propertyPath: Impact
+      value: 
+      objectReference: {fileID: 5234043328845210674, guid: c1b86416654a291409bfe2a010674e74,
+        type: 3}
     - target: {fileID: 8797178996764986152, guid: 195410c736c0036419e9cd9af230109c,
         type: 3}
       propertyPath: chaseRange

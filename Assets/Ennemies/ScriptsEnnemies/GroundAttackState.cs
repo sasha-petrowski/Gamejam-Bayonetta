@@ -17,6 +17,15 @@ public class GroundAttackState : AttackState
             animator.SetBool("Poing", true);
             animator.SetBool("Kick", false);
         }
-       
+        if (!alreadyAttacked)
+        {
+            transform.LookAt(Character.Instance.transform);
+            Invoke(nameof(ResetAttack), _stateManager.enemyInfos.fireRate);
+        }
+    }
+    
+    private void ResetAttack()
+    {
+        alreadyAttacked = false;
     }
 }
