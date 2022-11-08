@@ -15,7 +15,7 @@ public abstract class AttackState : State
 
     private void Update()
     {
-        if (Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position) >=
+        if (Vector3.Distance(Character.Instance.transform.position, transform.position) >=
             _stateManager.enemyInfos.attackRange)
         {
             chaseState.IsInRange = false;
