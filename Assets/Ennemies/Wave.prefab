@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1523474745857697917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523474745857697859}
+  - component: {fileID: 1523474745857697858}
+  - component: {fileID: 1523474745857697856}
+  m_Layer: 0
+  m_Name: Wave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1523474745857697859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523474745857697917}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 22.66, y: -1.95, z: 0.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &1523474745857697858
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523474745857697917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.13, y: 4, z: 1.35}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1523474745857697856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523474745857697917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da41bd3b41f052d4ab32ebec2eb334d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - numberOfGroundEnnemies: 1
+    numberOfFlyingEnnemies: 2
+    timeBetweenSpawn: 2
+  - numberOfGroundEnnemies: 2
+    numberOfFlyingEnnemies: 2
+    timeBetweenSpawn: 2
+  flyingSpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  groundSpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  prefabFlying: {fileID: 9063812126301898384, guid: 04e03aae7236164418e58c0211e7cb7c,
+    type: 3}
+  prefabGround: {fileID: 5506866809512254064, guid: 71bdabf33db5b80478f2871b0e00d18e,
+    type: 3}
+  currentEnnemies: []
