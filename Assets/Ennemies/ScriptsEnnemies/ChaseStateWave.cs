@@ -35,6 +35,7 @@ public class ChaseStateWave : State
         {
             transform.position = Vector3.MoveTowards(transform.position, Character.Instance.transform.position + new Vector3(0f,-3f,0f),
                 _stateManager.enemyInfos.speedChase * Time.deltaTime);
+            transform.LookAt(Character.Instance.transform);
             return this;
         }
     }

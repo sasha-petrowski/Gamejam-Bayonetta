@@ -96,8 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseState: {fileID: 1457825574640798084}
-  prefabBullet: {fileID: 8870000954995302451, guid: 23d5789fc18fbe244b75d6ee2be2375d,
-    type: 3}
 --- !u!114 &8378132698703929193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +115,7 @@ MonoBehaviour:
   attackRange: 5
   chaseRange: 10
   scoreValue: 0
-  Impact: {fileID: 0}
+  Impact: {fileID: 5234043328845210674, guid: c1b86416654a291409bfe2a010674e74, type: 3}
 --- !u!1001 &1457825573138375731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -280,3 +278,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1917868155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799844955165399394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23ff37807b9ca745ba29a42a9ff1b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBullet: {fileID: 8870000954995302451, guid: 23d5789fc18fbe244b75d6ee2be2375d,
+    type: 3}
+  offsetBullet: {x: 0, y: 1, z: 0}
