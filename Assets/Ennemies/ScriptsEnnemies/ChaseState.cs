@@ -2,17 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ChaseState : ChaseStateWave
 {
     public PatrolState patrolState;
-    
+    private float distance;
     private void Update()
     {
-        if (Vector3.Distance(PlayerTest.Instance.transform.position, transform.position) > _stateManager.enemyInfos.chaseRange)
+        distance = Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position);
+        if (distance > _stateManager.enemyInfos.chaseRange)
         {
             patrolState.canSeeThePlayer = false;
+        }
+        if (distance <= _stateManager.enemyInfos.attackRange)
+        {
+            IsInRange = true;
         }
     }
 
@@ -30,8 +34,8 @@ public class ChaseState : ChaseStateWave
         }
         else
         {
-            //navMesh.SetDestination(PlayerTest.Instance.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, PlayerTest.Instance.transform.position,
+            
+            transform.position = Vector3.MoveTowards(transform.position, PlayerPosition.Instance.transform.position,
                 _stateManager.enemyInfos.speedChase * Time.deltaTime);
             return this;
         }
