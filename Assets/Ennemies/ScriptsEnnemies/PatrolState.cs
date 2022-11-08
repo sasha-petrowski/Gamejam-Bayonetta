@@ -21,7 +21,7 @@ public class PatrolState : State
 
     private void Update()
     {
-        if (Vector3.Distance(PlayerTest.Instance.transform.position, transform.position) <
+        if (Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position) <
             _stateManager.enemyInfos.chaseRange)
         {
             canSeeThePlayer = true;
