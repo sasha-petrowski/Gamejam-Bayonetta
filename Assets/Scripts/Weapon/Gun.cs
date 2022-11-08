@@ -13,27 +13,19 @@ public class Gun : Weapon
     [Tooltip("Angle between the first and last projectile")]
     public float projectileSpread;
 
-
-
-    private float _timeAtLastShot;
     
-    public override void Attack()
+    public override float Attack()
     {
-        base.Attack();
-        if(Time.time > _timeAtLastShot + timeBewteenShoots)
+        for (int i = 0; i < projectileAmount; i++)
         {
-            _timeAtLastShot = Time.time;
-            
-            for(int i = 0; i < projectileAmount; i++)
-            {
-                Projectile newProjectile = GameObject.Instantiate(projectile);
-                newProjectile.transform.position = projectileSpawn.transform.position;
-                newProjectile.transform.rotation = projectileSpawn.transform.rotation;
-                newProjectile.transform.Rotate(new Vector3(0, 0, projectileSpread * (i / (float)projectileAmount) - projectileSpread / 2f));
-                newProjectile.Launch();
-            }
-
-            OnAttackEnd();
+            Projectile newProjectile = GameObject.Instantiate(projectile);
+            newProjectile.transform.position = projectileSpawn.transform.position;
+            newProjectile.transform.rotation = projectileSpawn.transform.rotation;
+            newProjectile.transform.Rotate(new Vector3(0, 0, projectileSpread * (i / (float)projectileAmount) - projectileSpread / 2f));
+            newProjectile.Launch();
         }
+        OnAttackEnd();
+
+        return timeBewteenShoots;
     }
 }

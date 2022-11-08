@@ -82,6 +82,8 @@ public class Character : MonoBehaviour
 
     private float _timeAtJumpStart;
     private float _timeAtDashStart;
+    private float _timeAtAttackStart;
+    private float _attackCooldown;
 
     private float _dashDirection;
     private bool _isJumping = false;
@@ -217,10 +219,11 @@ public class Character : MonoBehaviour
 
     public void AttackStart()
     {
-        if (_isLegUp && !_isAttacking)
+        if (_isLegUp && Time.time >= _timeAtAttackStart + _attackCooldown)
         {
+            _timeAtAttackStart = Time.time;
             _isAttacking = true;
-            currentWeapon.Attack();
+            _attackCooldown = currentWeapon.Attack();
         }
     }
     public void OnAttackEnd()

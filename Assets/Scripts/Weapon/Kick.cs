@@ -16,11 +16,11 @@ public class Kick : Weapon
     }
 
 
-    public override void Attack()
+    public override float Attack()
     {
-        base.Attack();
         _collider.enabled = true;
         character.DoExtendLeg(kickTime, retractKick);
+        return kickTime * 2;
     }
 
     private void retractKick()
