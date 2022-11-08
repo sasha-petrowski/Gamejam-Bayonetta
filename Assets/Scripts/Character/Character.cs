@@ -233,6 +233,8 @@ public class Character : MonoBehaviour
     {
         if(Time.time > _timeAtDashStart + _dashTime)
         {
+            ScoreManager.mult = 1; // Reset the score mult when hit.
+
             _takeDamageSound.Play();
             _takeDamageFX.Play();
 
