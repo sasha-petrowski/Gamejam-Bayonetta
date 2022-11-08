@@ -19,6 +19,7 @@ public abstract class AttackState : State
         if (Vector3.Distance(Character.Instance.transform.position, transform.position) >=
             _stateManager.enemyInfos.attackRange)
         {
+            transform.LookAt(Character.Instance.transform);
             chaseState.IsInRange = false;
         }
     }

@@ -460,6 +460,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5270589930014493879, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
         type: 3}
+      propertyPath: _takeDamageFX
+      value: 
+      objectReference: {fileID: 8408414404062117756, guid: ecc0129b497103e489219d54f5188714,
+        type: 3}
+    - target: {fileID: 5270589930014493879, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+        type: 3}
       propertyPath: _weaponList.Array.data[1]
       value: 
       objectReference: {fileID: 1423888419}
@@ -1120,12 +1126,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8378132698703929193, guid: ebe9367adb57223408eaee46fa4a7f7c,
-        type: 3}
-      propertyPath: Impact
-      value: 
-      objectReference: {fileID: 5234043328845210674, guid: c1b86416654a291409bfe2a010674e74,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe9367adb57223408eaee46fa4a7f7c, type: 3}
 --- !u!1001 &8698291608822785647
@@ -1219,7 +1219,7 @@ PrefabInstance:
     - target: {fileID: 8797178996764986152, guid: 195410c736c0036419e9cd9af230109c,
         type: 3}
       propertyPath: attackRange
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9168259415062809977, guid: 195410c736c0036419e9cd9af230109c,
         type: 3}
