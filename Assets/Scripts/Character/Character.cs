@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Animations.Rigging;
-
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -23,6 +23,8 @@ public class Character : MonoBehaviour
     private GameObject _foot;
     [SerializeField]
     private Weapon[] _weaponList;
+    [SerializeField]
+    private Slider _lifeBar;
 
     [SerializeField]
     private Animator _animator;
@@ -239,7 +241,10 @@ public class Character : MonoBehaviour
             _takeDamageFX.Play();
 
             _health -= damage;
-            Debug.Log(_health);
+            if(_lifeBar != null)
+            {
+                _lifeBar.value = _health / _maxHealth;
+            }
             if (_health <= 0)
             {
                 //dead
