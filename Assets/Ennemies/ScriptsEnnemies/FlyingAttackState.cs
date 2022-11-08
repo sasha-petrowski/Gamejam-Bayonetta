@@ -10,7 +10,7 @@ public class FlyingAttackState : AttackState
         if (!alreadyAttacked)
         {
             animator.SetBool("Attack",true);
-            
+            transform.LookAt(Character.Instance.transform);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), _stateManager.enemyInfos.fireRate);
         }
