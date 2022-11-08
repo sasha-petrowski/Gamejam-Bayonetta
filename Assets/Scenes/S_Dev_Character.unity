@@ -123,6 +123,28 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &598411333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5270589929693353132, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5270589930290322665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &598411337
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598411333}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &782879886
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +378,80 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &1094271305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094271306}
+  m_Layer: 0
+  m_Name: ProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1094271306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094271305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1982703589}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1202717312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202717313}
+  m_Layer: 0
+  m_Name: ProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1202717313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202717312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1595017309}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1595017309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5270589930290322665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1982703589 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5270589928845687564, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5270589930290322665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5270589930290322665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -363,46 +459,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5270589928845687564, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+    - target: {fileID: 5270589928845687567, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589928845687564, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+      propertyPath: projectileSpawn
+      value: 
+      objectReference: {fileID: 1094271306}
+    - target: {fileID: 5270589929500873911, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.000119
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.000117
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.000138
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.38268325
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.9238796
-      objectReference: {fileID: 0}
-    - target: {fileID: 5270589929500873908, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 225
-      objectReference: {fileID: 0}
+      propertyPath: projectileSpawn
+      value: 
+      objectReference: {fileID: 1202717313}
     - target: {fileID: 5270589930014493873, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
         type: 3}
       propertyPath: m_Name
@@ -462,6 +528,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270589930014493879, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+        type: 3}
+      propertyPath: _dashTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270589930014493879, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+        type: 3}
+      propertyPath: _dashSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270589930014493879, guid: 00b2294c517f9bd4aa07ea1882a81fa2,
+        type: 3}
+      propertyPath: _dashCooldown
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00b2294c517f9bd4aa07ea1882a81fa2, type: 3}

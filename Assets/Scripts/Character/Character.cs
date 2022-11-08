@@ -77,6 +77,10 @@ public class Character : MonoBehaviour
     [HideInInspector]
     public Vector3 legDirection;
 
+    private bool _isBlockedByCamera;
+    private float _cameraLimitLeft;
+    private float _cameraLimitRight;
+
     private float _legDistance;
     private float _timeAtJumpStart;
     private float _timeAtDashStart;
@@ -87,8 +91,9 @@ public class Character : MonoBehaviour
     private bool _isJumping = false;
     private bool _isAttacking = false;
     private bool _isLegUp = false;
-    private float _health;
     private float _direction;
+
+    private float _health;
 
     private Plane _raycastPlane;
 
@@ -97,6 +102,8 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
         for(int i = 0; i < _weaponList.Length; i++)
         {
             _weaponList[i].character = this;
@@ -109,6 +116,9 @@ public class Character : MonoBehaviour
         _raycastPlane = new Plane(new Vector3(0, 0, 1), Vector3.zero);
 
         _health = _maxHealth;
+
+
+        CameraBlock(true);
     }
 
     private void Update()
@@ -146,6 +156,10 @@ public class Character : MonoBehaviour
 
         float moveStep = _direction * _horizontalSpeed * Time.deltaTime;
 
+        if (_isBlockedByCamera)
+        {
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x + dashStep + moveStep, _cameraLimitLeft, _cameraLimitRight), jumpY, transform.position.z);
+        }
         transform.position = new Vector3(transform.position.x + dashStep + moveStep, jumpY, transform.position.z);
         //_direction = Mathf.MoveTowards(_direction, 0, Time.deltaTime * _movementDrag);
 
@@ -164,19 +178,41 @@ public class Character : MonoBehaviour
 
                 targetRotation = Quaternion.FromToRotation(new Vector3(0, -1, 0), legDirection);
             }
+
         }
         else
         {
             targetPosition = transform.position;
             targetPosition.y -= _legMaxLenght;
         }
-
         _foot.transform.position = targetPosition;
 
         _foot.transform.rotation = targetRotation;
         _foot.transform.Rotate(_footAngleVector);
         //_foot.transform.rotation = Quaternion.RotateTowards(_foot.transform.rotation, targetRotation, 360 * Time.deltaTime);
 
+    }
+
+    public void CameraBlock(bool cameraBlock)
+    {
+        _isBlockedByCamera = cameraBlock;
+        if (_isBlockedByCamera)
+        {
+            Ray ray;
+            float enter = 0.0f;
+
+            ray = Camera.main.ScreenPointToRay(new Vector3(0, 0, 0));
+            if (_raycastPlane.Raycast(ray, out enter))
+            {
+                _cameraLimitLeft = ray.GetPoint(enter).x;
+            }
+            
+            ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth, 0, 0));
+            if (_raycastPlane.Raycast(ray, out enter))
+            {
+                _cameraLimitRight = ray.GetPoint(enter).x;
+            }
+        }
     }
 
     public void NextWeapon()
