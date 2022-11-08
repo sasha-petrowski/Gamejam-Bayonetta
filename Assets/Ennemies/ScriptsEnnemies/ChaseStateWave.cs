@@ -17,8 +17,8 @@ public class ChaseStateWave : State
 
     private void Update()
     {
-        if (Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position) <=
-            _stateManager.enemyInfos.attackRange)
+        if (Vector3.Distance(Character.Instance.transform.position, transform.position) <=
+            _stateManager.enemyInfos.attackRange )
         {
             IsInRange = true;
         }
@@ -33,7 +33,7 @@ public class ChaseStateWave : State
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, PlayerPosition.Instance.transform.position,
+            transform.position = Vector3.MoveTowards(transform.position, Character.Instance.transform.position + new Vector3(0f,-3f,0f),
                 _stateManager.enemyInfos.speedChase * Time.deltaTime);
             return this;
         }

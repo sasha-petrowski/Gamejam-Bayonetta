@@ -218,6 +218,7 @@ public class Character : MonoBehaviour
         _takeDamageFX.Play();
 
         _health -= damage;
+        Debug.Log(_health);
         if(_health <= 0)
         {
             //dead

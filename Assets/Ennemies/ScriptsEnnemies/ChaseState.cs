@@ -11,7 +11,7 @@ public class ChaseState : ChaseStateWave
   
     private void Update()
     {
-        distance = Vector3.Distance(PlayerPosition.Instance.transform.position, transform.position);
+        distance = Vector3.Distance(Character.Instance.transform.position, transform.position);
         if (distance > _stateManager.enemyInfos.chaseRange)
         {
             patrolState.canSeeThePlayer = false;
@@ -39,7 +39,7 @@ public class ChaseState : ChaseStateWave
         else
         {
             animator.SetBool("Ismoving",true);
-            transform.position = Vector3.MoveTowards(transform.position, PlayerPosition.Instance.transform.position,
+            transform.position = Vector3.MoveTowards(transform.position, Character.Instance.transform.position + new Vector3( 0f,-3f,0f),
                 _stateManager.enemyInfos.speedChase * Time.deltaTime);
             return this;
         }

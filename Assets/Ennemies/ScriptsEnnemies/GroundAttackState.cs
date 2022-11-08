@@ -17,5 +17,6 @@ public class GroundAttackState : AttackState
             animator.SetBool("Poing", true);
             animator.SetBool("Kick", false);
         }
+       
     }
 }

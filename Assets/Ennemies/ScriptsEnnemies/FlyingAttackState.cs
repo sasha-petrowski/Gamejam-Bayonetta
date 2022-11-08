@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class FlyingAttackState : AttackState
         if (!alreadyAttacked)
         {
             animator.SetBool("Attack",true);
-            transform.LookAt(PlayerPosition.Instance.transform);
+            transform.LookAt(Character.Instance.transform);
             GameObject go = Instantiate(prefabBullet, transform.position, Quaternion.identity);
             Rigidbody rb = go.GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
