@@ -13,6 +13,9 @@ public class Character : MonoBehaviour
 
 
     [Header("Leg")]
+
+    [SerializeField]
+    private int _maxLegAngle;
     [SerializeField] 
     private Vector3 _footAngleVector;
     [SerializeField]
@@ -76,6 +79,7 @@ public class Character : MonoBehaviour
 
     [HideInInspector]
     public Vector3 legDirection;
+    private Vector3 _maxLegDirection;
 
     private bool _isBlockedByCamera;
     private float _cameraLimitLeft;
@@ -102,9 +106,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
-        for(int i = 0; i < _weaponList.Length; i++)
+        for (int i = 0; i < _weaponList.Length; i++)
         {
             _weaponList[i].character = this;
         }
@@ -112,7 +114,9 @@ public class Character : MonoBehaviour
         currentWeapon = _weaponList[0];
         currentWeapon.OnSelect();
 
+        _maxLegDirection = new Vector3(Mathf.Sin(_maxLegAngle * Mathf.Deg2Rad), -Mathf.Cos(_maxLegAngle * Mathf.Deg2Rad), 0);
         _legDistance = _legMaxLenght;
+
         _raycastPlane = new Plane(new Vector3(0, 0, 1), Vector3.zero);
 
         _health = _maxHealth;
@@ -174,6 +178,13 @@ public class Character : MonoBehaviour
             if (_raycastPlane.Raycast(ray, out enter))
             {
                 legDirection = (ray.GetPoint(enter) - transform.position).normalized;
+
+                if (legDirection.y > _maxLegDirection.y)
+                {
+                    legDirection.y = _maxLegDirection.y;
+                    legDirection.x = _maxLegDirection.x * Mathf.Sign(legDirection.x);
+                }
+
                 targetPosition = legDirection * _legDistance + transform.position;
 
                 targetRotation = Quaternion.FromToRotation(new Vector3(0, -1, 0), legDirection);
