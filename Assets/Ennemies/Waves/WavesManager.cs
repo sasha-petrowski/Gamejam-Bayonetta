@@ -12,12 +12,14 @@ public class WavesManager : MonoBehaviour
     private Vector3 cameraPreviousPos;
     [SerializeField] private GameObject prefabFlying;
     [SerializeField] private GameObject prefabGround;
+    [SerializeField] private GameObject prefabFX;
 
     public List<EnemyInfos> currentEnnemies;
 
     private int currentWave;
     private bool AlreadyTrigger = false;
     private bool HasStarted = false;
+    private GameObject completeEffect;
 
     private void Start()
     {
@@ -44,6 +46,8 @@ public class WavesManager : MonoBehaviour
                 {
                     Character.Instance.CameraBlock(false);
                     Camera.main.gameObject.GetComponent<FollowPlayer>().IsFollowing = true;
+                    HasStarted = false;
+                    StartCoroutine(OnWaveComplete());
                 }
                 else
                 {
@@ -51,6 +55,14 @@ public class WavesManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator OnWaveComplete()
+    {
+        completeEffect = Instantiate(prefabFX, transform.position, Quaternion.identity);
+        completeEffect.transform.parent = gameObject.transform;
+        yield return new WaitForSeconds(3f);
+        Destroy(completeEffect);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,6 +101,5 @@ public class WavesManager : MonoBehaviour
     {
         EnemyInfos enemyInfos = Instantiate(go, pos, Quaternion.identity).GetComponent<EnemyInfos>();
         currentEnnemies.Add(enemyInfos);
-        
     }
 }

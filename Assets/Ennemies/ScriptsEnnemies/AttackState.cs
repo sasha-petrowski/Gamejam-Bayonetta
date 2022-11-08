@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class AttackState : State
 {
     public ChaseStateWave chaseState;
+    protected bool alreadyAttacked = false;
 
     private void Start()
     {
